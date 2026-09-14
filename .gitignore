@@ -1,0 +1,20 @@
+node_modules/
+coverage/
+dist/
+.DS_Store
+
+# React Native / CocoaPods / Xcode
+ios/Pods/
+DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcuserstate
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
