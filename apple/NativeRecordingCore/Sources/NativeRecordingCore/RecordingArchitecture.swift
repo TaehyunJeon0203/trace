@@ -11,12 +11,20 @@ public struct RecordingArtifact: Sendable, Equatable {
     public let identifier: UUID
     public let fileURL: URL
     public let createdAt: Date
+    public let duration: TimeInterval
     public let byteSize: Int64
 
-    public init(identifier: UUID, fileURL: URL, createdAt: Date, byteSize: Int64) {
+    public init(
+        identifier: UUID,
+        fileURL: URL,
+        createdAt: Date,
+        duration: TimeInterval,
+        byteSize: Int64
+    ) {
         self.identifier = identifier
         self.fileURL = fileURL
         self.createdAt = createdAt
+        self.duration = duration
         self.byteSize = byteSize
     }
 }
@@ -28,4 +36,5 @@ public protocol RecordingControlling: Actor {
 
     func start() async throws
     func stop() async throws -> RecordingArtifact
+    func recordings() async throws -> [RecordingArtifact]
 }

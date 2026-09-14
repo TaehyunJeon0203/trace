@@ -2,7 +2,7 @@
 
 Trace is a greenfield scaffold for an iPhone companion app and an Apple Watch recording experience. The iPhone UI uses React Native with TypeScript. Recording is intended to remain native Swift, and the Watch UI is native SwiftUI.
 
-> **Current status:** scaffold only. No audio recording, background execution, transfer, or retention deletion is implemented.
+> **Current status:** the first presentation/contract slice is implemented: a typed recording model and validated React Native bridge, an iPhone recording dashboard, and honest Swift module stubs. No AVFoundation audio recording, background execution, transfer, or retention deletion is implemented.
 
 ## Repository layout
 
@@ -21,7 +21,7 @@ React Native UI -> typed bridge -> iOS native adapter -> NativeRecordingCore
 Watch SwiftUI   -> watch native adapter -------------> NativeRecordingCore
 ```
 
-`RecordingControlling` isolates future AVFoundation/WatchKit code from UI code. `planEviction` is pure, deterministic, and platform-independent; protected recordings are never selected for eviction.
+`RecordingControlling` isolates future AVFoundation/WatchKit code from UI code. Swift remains responsible for recording state, files, and the recordings library; React Native presents snapshots and sends start/stop intents. Native payloads are validated before entering the TypeScript domain. `planEviction` is pure, deterministic, and platform-independent; protected recordings are never selected for eviction.
 
 ## Prerequisites and setup
 
@@ -51,7 +51,7 @@ npm test
 - iOS/watchOS simulators do not faithfully represent microphone routes, interruption handling, lock-screen behavior, battery/thermal pressure, or Watch-to-iPhone transfer.
 - watchOS background runtime is constrained and policy-sensitive; continuous recording must not be assumed viable until measured and reviewed against current Apple requirements.
 - React Native cannot own the time-critical recording lifecycle. Native Swift should own sessions, files, interruptions, and recovery; JavaScript should observe state and issue validated user intents.
-- The checked-in bridge reports only `idle`. Start/stop methods are intentionally absent.
+- The checked-in bridge reports an idle, empty snapshot and exposes start/stop methods, but deliberately rejects those commands until an AVFoundation implementation is integrated and validated. It does not simulate recording or background execution.
 - Storage protection in the TypeScript policy is a product-level concept, not filesystem encryption or backup protection.
 
 ## Phase 0 hardware spikes

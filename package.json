@@ -7,7 +7,7 @@
     "start": "react-native start",
     "ios": "react-native run-ios",
     "test": "node --test shared/**/*.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit && tsc --project tsconfig.test.json"
   },
   "dependencies": {
     "react": "19.1.0",
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@react-native/typescript-config": "0.81.4",
+    "@types/node": "^22.20.2",
     "@types/react": "^19.1.0",
     "typescript": "^5.8.3"
   },
